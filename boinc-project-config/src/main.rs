@@ -11,15 +11,15 @@ fn main() {
             .interact()
             .unwrap();
 
-        if boinc_dir_option {
-            let boinc_path = Input:new()
-                .with_prompt("Ok then, put your FULL directory path here to the projects: ")
-                .interact_text()
-                .unwrap();
-        } else {
-            let boinc_path = "/var/lib/boinc/projects"
-            println!("Ok then, going with the default diretory (/var/lib/boinc/projects)")
-        }
+    if boinc_dir_option {
+        let boinc_path = Input:new()
+            .with_prompt("Ok then, put your FULL directory path here to the projects: ")
+            .interact_text()
+            .unwrap();
+    } else {
+        let boinc_path = "/var/lib/boinc/projects"
+        println!("Ok then, going with the default diretory (/var/lib/boinc/projects)")
+    }
     //let project_name = "someproject.com_project";
 
 
