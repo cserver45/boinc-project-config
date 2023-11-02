@@ -35,12 +35,11 @@ fn main() {
 
     // now we need options for the user, from this documentation: https://boinc.berkeley.edu/wiki/Client_configuration
     // ill probably make this some kind of function, so I don't have 30 different if trees or a large match tree
+    let options = menu_top(format!("{project_name}/app_config.xml"));
 
     // compile into one list after the user has told us to save
     let options = "some string hm";
 
-    // write to the directory
-    println!("Hello world");
     // directory path, by default it stores it in /var/lib/boinc/projects/<project name>
     fs::write(format!("{project_name}/app_config.xml"), options);
 
@@ -55,6 +54,15 @@ fn main() {
         // and then restart the service somehow
     } else {
         println!("You will need to restart BOINC yourself then. Goodbye!")
+    }
+
+}
+
+fn menu_top(project: char) {
+    // the main selection menu
+    let mut editing = true
+    while editing == true {
+        println!("running the loop")
     }
 
 }
