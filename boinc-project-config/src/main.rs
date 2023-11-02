@@ -26,7 +26,15 @@ fn main() {
     // lets give the user options as to what projects are available
     let paths = fs::read_dir(boinc_path).unwrap();
 
-    // then iterate through this in dialoguer
+    let selection = Select::new()
+        .with_prompt("Chose a project: ")
+        .items(&paths)
+        .interact()
+        .unwrap();
+    
+
+    // now we need options for the user, from this documentation: https://boinc.berkeley.edu/wiki/Client_configuration
+    // ill probably make this some kind of function, so I don't have 30 different if trees or a large match tree
 
     // compile into one list after the user has told us to save
     let options = "some string hm";
