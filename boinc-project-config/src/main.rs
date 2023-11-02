@@ -1,11 +1,32 @@
 use std::fs;
 
-//use dialoguer::Input;
+use dialoguer::Input;
 use dialoguer::Confirm;
 
 fn main() {
-    // first, we need a menu system for options
-    let project_name = "someproject.com_project";
+    // first, ask the user if BOINC is installed in a custom directory
+    let boinc_dir_option = Confirm::new()
+            .with_prompt("Did you install BOINC somewhere than the default directory? (Default is /var/lib/boinc/projects): ")
+            .default(false)
+            .interact()
+            .unwrap();
+
+        if boinc_dir_option {
+            let boinc_path = Input:new()
+                .with_prompt("Ok then, put your FULL directory path here to the projects: ")
+                .interact_text()
+                .unwrap();
+        } else {
+            let boinc_path = "/var/lib/boinc/projects"
+            println!("Ok then, going with the default diretory (/var/lib/boinc/projects)")
+        }
+    //let project_name = "someproject.com_project";
+
+
+    // lets give the user options as to what projects are available
+    let paths = fs::read_dir(boinc_path).unwrap();
+
+    // then iterate through this in dialoguer
 
     // compile into one list after the user has told us to save
     let options = "some string hm";
