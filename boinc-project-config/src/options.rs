@@ -3,7 +3,7 @@ use dialoguer::Input;
 
 pub fn conf_max_concurrent() {
     // confgures how many instances of a project's application can run at once (usually limited by CPU codes)
-    let boinc_path: u16 = Input:new()
+    let boinc_path: u16 = Input::new()
             .with_prompt("What is the MAXIMUM amount of instances do you want of this project running? ")
             .interact_text()
             .unwrap();
