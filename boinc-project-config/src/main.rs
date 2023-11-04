@@ -2,6 +2,8 @@ use std::fs;
 
 use dialoguer::Confirm;
 use dialoguer::Input;
+use dialoguer::Select;
+
 
 fn main() {
     // first, ask the user if BOINC is installed in a custom directory
@@ -11,25 +13,29 @@ fn main() {
             .interact()
             .unwrap();
 
+    let mut boinc_path = String::new();
     if boinc_dir_option {
-        let boinc_path = Input::new()
+        boinc_path = Input::new()
             .with_prompt("Ok then, put your FULL directory path here to the projects: ")
             .interact_text()
             .unwrap();
     } else {
-        let boinc_path = "/var/lib/boinc/projects";
-        println!("Ok then, going with the default diretory (/var/lib/boinc/projects)");
+        //println!("Ok then, going with the default diretory (/var/lib/boinc/projects)");
+        boinc_path = "/var/lib/boinc/projects".to_string();
     }
-    //let project_name = "someproject.com_project";
+    let project_name = "someproject.com_project";
 
     // lets give the user options as to what projects are available
     let paths = fs::read_dir(boinc_path).unwrap();
+    for path in paths {
+        println!("Name: {}", path.unwrap().path().display());
+    }
 
-    let selection = Select::new()
-        .with_prompt("Chose a project: ")
-        .items(&paths)
-        .interact()
-        .unwrap();
+    //let project_name = Select::new()
+    //    .with_prompt("Chose a project: ")
+    //    .items(&paths)
+    //    .interact()
+    //    .unwrap();
 
     // now we need options for the user, from this documentation: https://boinc.berkeley.edu/wiki/Client_configuration
     // ill probably make this some kind of function, so I don't have 30 different if trees or a large match tree
@@ -55,7 +61,7 @@ fn main() {
     }
 }
 
-fn menu_top(project: char) {
+fn menu_top(project: String) {
     // the main selection menu
     let mut editing = true;
     while editing == true {
