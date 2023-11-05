@@ -4,6 +4,9 @@ use dialoguer::Confirm;
 use dialoguer::Input;
 use dialoguer::Select;
 
+mod options;
+
+
 
 fn main() {
     // first, ask the user if BOINC is installed in a custom directory
@@ -61,10 +64,30 @@ fn main() {
     }
 }
 
-fn menu_top(project: String) {
+fn menu_top(project: String) -> String {
     // the main selection menu
+    let options_menu = vec!["Exit", "Change max concurrent processes"];
     let mut editing = true;
+    let mut return_str: String = "".to_owned();
     while editing == true {
-        println!("running the loop");
+        let option = Select::new()
+            .with_prompt("What do you want to do?: ")
+            .items(&options_menu)
+            .interact()
+            .unwrap();
+
+        println!("{}", options_menu[option]);
+
+        // now we match that option, run its code, and return to the loop
+        /*let result: String = match option {
+            options_menu[0] => "false";
+            options_menu[1] => options::conf_max_concurrent();
+        }
+        if result == "false" {
+            editing = false
+        } else {
+            return_str.to_owned().push_str(&result);
+        }*/
     }
+    return return_str;
 }
